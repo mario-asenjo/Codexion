@@ -1,0 +1,7 @@
+codexion
+codexion.exe
+*.o
+*.obj
+*.out
+*.log
+.DS_Store
