@@ -39,11 +39,11 @@
 - [ ] Helgrind/DRD checked if available.
 
 ## Scheduler and heap
-- [ ] Custom binary heap implemented.
-- [ ] FIFO ordering demonstrated.
-- [ ] EDF ordering demonstrated.
-- [ ] EDF tie-breaker isolated for recode.
-- [ ] No `qsort`.
+- [x] Custom binary heap implemented.
+- [x] FIFO ordering demonstrated by temporary WSL heap test.
+- [x] EDF ordering demonstrated by temporary WSL heap test.
+- [x] EDF tie-breaker isolated for recode in `cx_edf_tie_break`.
+- [x] No `qsort`.
 
 ## Simulation correctness
 - [ ] One coder case handled.

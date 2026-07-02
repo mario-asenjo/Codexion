@@ -19,7 +19,7 @@ Done when the repository contains the project brain and `coders/.gitkeep` only u
 
 Done when `make re` builds `codexion` without warnings and a minimal argument validation path runs.
 
-Status: implemented on branch `feat/phase-1-project-skeleton`. Verified with local clang override because this Windows PATH currently has no `cc` binary available.
+Status: implemented on branch `feat/phase-1-project-skeleton`. Merged to `main` via PR #1 and verified in WSL with `/usr/bin/cc`.
 
 ## Phase 2 — Heap scheduler
 - Custom binary heap.
@@ -29,6 +29,8 @@ Status: implemented on branch `feat/phase-1-project-skeleton`. Verified with loc
 - Small manual heap tests, not part of final delivery or clearly separated.
 
 Done when heap ordering is demonstrable for FIFO and EDF.
+
+Status: implemented on branch `feat/phase-2-heap-scheduler`. Verified in WSL with a temporary `hermes-verify-phase2-*` script that compiled a non-deliverable heap test outside the repository.
 
 ## Phase 3 — Simulation state
 - Initialize coders and dongles.
