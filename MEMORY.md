@@ -24,9 +24,12 @@ This file records durable project decisions. It is not a todo list and not a ses
 - Repository workflow now uses feature branches and PRs; `.github/pull_request_template.md` defines the review format.
 - Local Windows environment has no `cc` on PATH. `Makefile` still uses required `cc`; Phase 1 was verified with `make re CC=/c/Qt/Tools/llvm-mingw1706_64/bin/clang`.
 - `.gitattributes` enforces LF line endings for C, headers, Makefile, and Markdown to avoid Windows CRLF surprises in 42/Linux evaluation.
+- All canonical build/test verification should run in WSL Ubuntu 24.04, where `/usr/bin/cc` and `/usr/bin/make` are available.
+- Phase 2 heap is a fixed-capacity binary min-heap backed by `malloc`; no `realloc`, `qsort`, or library priority queue is used.
+- FIFO ordering is isolated in sequence comparison. EDF ordering compares earliest `deadline_ms` first, then delegates equal-deadline behavior to `cx_edf_tie_break`.
+- Current EDF tie-break policy is lower `coder_id` first, then lower request `seq`; recode to prefer higher `coder_id` only needs changing `cx_edf_tie_break`.
 
 ## Future decisions to record
-- Exact parser range limits.
 - Exact sleep/timed-wait strategy.
 - Whether individual `dongle.lock` remains necessary after central arbitration.
 - Final file/module breakdown.

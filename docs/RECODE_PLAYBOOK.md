@@ -20,12 +20,14 @@ Before recode, choose one clear tie-break policy:
 Document which one is used.
 
 ## Recode steps
-1. Open the scheduler comparator file.
-2. Locate the EDF tie-break function.
+1. Open `coders/heap.c`.
+2. Locate `cx_edf_tie_break`.
 3. Change only equal-deadline behavior to prefer higher `coder_id`.
 4. Rebuild with `make re`.
 5. Run a small EDF case that creates equal deadlines.
 6. Explain that no heap algorithm changed; only comparator policy changed.
+
+Current implementation detail: EDF first compares `deadline_ms`; only equal deadlines call `cx_edf_tie_break`.
 
 ## Defense sentence
 “The heap is policy-agnostic. EDF ordering is centralized in the comparator, and equal-deadline behavior is isolated in one function, so recode changes scheduling policy without touching thread synchronization or heap mechanics.”

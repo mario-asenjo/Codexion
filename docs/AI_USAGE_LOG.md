@@ -26,3 +26,12 @@ AI was used to:
 - identify that the local Windows PATH lacks `cc`, then verify compilation with the available Qt LLVM clang override while preserving `CC = cc` in the Makefile.
 
 The implemented code is limited to argument validation, base types, time helpers, and serialized logging support.
+
+## Phase 2
+AI was used to:
+- implement a small fixed-capacity binary heap for scheduler requests;
+- keep heap mechanics separate from FIFO/EDF policy;
+- isolate the EDF equal-deadline tie-breaker in `cx_edf_tie_break` for recode;
+- create temporary WSL-only heap verification instead of adding non-deliverable test files to the project tree.
+
+No simulation threads, dongle arbitration, monitor, or cooldown behavior were implemented in this phase.
