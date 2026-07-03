@@ -14,8 +14,6 @@
 # define CX_MAX_TIME_MS 1000000L
 # define CX_MAX_COMPILES 1000000
 
-struct s_sim;
-
 typedef struct s_config
 {
 	int		number_of_coders;
@@ -27,23 +25,6 @@ typedef struct s_config
 	long	dongle_cooldown;
 	int		scheduler;
 } 	t_config;
-
-typedef struct s_dongle
-{
-	int				id;
-	int				owner_id;
-	long			available_at_ms;
-	pthread_mutex_t	lock;
-} 	t_dongle;
-
-typedef struct s_coder
-{
-	int				id;
-	int				compiles_done;
-	long			last_compile_start_ms;
-	pthread_t		thread;
-	struct s_sim	*sim;
-} 	t_coder;
 
 typedef struct s_request
 {
@@ -64,23 +45,6 @@ typedef struct s_log
 	pthread_mutex_t	lock;
 	long			start_ms;
 } 	t_log;
-
-typedef struct s_sim
-{
-	t_config		cfg;
-	t_coder			*coders;
-	t_dongle		*dongles;
-	t_heap			wait_heap;
-	pthread_mutex_t	state_lock;
-	pthread_mutex_t	log_lock;
-	pthread_cond_t	state_changed;
-	pthread_t		monitor_thread;
-	long			start_ms;
-	long			request_seq;
-	int				stop;
-	int				burned_coder_id;
-	int				completed_coders;
-} 	t_sim;
 
 int		cx_parse_config(int argc, char **argv, t_config *cfg);
 void	cx_print_usage(void);

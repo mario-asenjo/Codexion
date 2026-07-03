@@ -1,24 +1,24 @@
 # Evaluation Checklist
 
 ## Build
-- [ ] `make` builds `codexion`.
+- [x] `make` builds `codexion` under WSL/Linux.
 - [x] `make re` cleans and rebuilds with available local compiler override.
 - [x] No warnings with `-Wall -Wextra -Werror -pthread` under clang verification.
 - [x] `Makefile` has `NAME`, `all`, `clean`, `fclean`, `re`.
-- [ ] No unnecessary relink.
+- [x] No unnecessary relink under WSL/Linux `make`.
 
 ## Language and Norm
-- [ ] C89-compatible declarations and comments.
-- [ ] No `//` comments in C files.
-- [ ] No declarations inside `for` statements.
-- [ ] No VLA.
-- [ ] No `<stdbool.h>`.
+- [x] C89-compatible declarations and comments in current code.
+- [x] No `//` comments in C files.
+- [x] No declarations inside `for` statements.
+- [x] No VLA.
+- [x] No `<stdbool.h>`.
 - [ ] 42 Norm style reviewed.
 
 ## Functions
-- [ ] Only authorized functions used in final binary.
-- [ ] Forbidden function scan passed.
-- [ ] No libft.
+- [x] Only authorized functions used in current Phase 2 binary.
+- [x] Forbidden function scan passed for current code.
+- [x] No libft.
 
 ## Parser
 - [x] `argc == 9` enforced.
@@ -68,7 +68,8 @@
 
 ## Defense
 - [ ] README complete.
-- [ ] AI usage log honest.
+- [x] AI usage log honest.
+- [x] Public skill usage is registered in `AGENTS.md`; no repo-local skill files remain.
 - [ ] User can explain deadlock prevention.
 - [ ] User can explain starvation strategy.
 - [ ] User can explain heap comparator.
