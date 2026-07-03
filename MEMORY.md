@@ -22,6 +22,7 @@ This file records durable project decisions. It is not a todo list and not a ses
 - Numeric parsing is manual because `strtol` and `isdigit` are forbidden; only unsigned decimal digits are accepted, so `+1`, `-1`, `1x`, and empty strings are invalid.
 - Current parser range policy: coders `1..200`, burnout `1..1000000` ms, compile/debug/refactor/cooldown `0..1000000` ms, required compiles `1..1000000`.
 - Repository workflow now uses feature branches and PRs; `.github/pull_request_template.md` defines the review format.
+- Agents must not add repo-local skill files; `AGENTS.md` registers public Hermes skills and project-specific review lenses instead.
 - Local Windows environment has no `cc` on PATH. `Makefile` still uses required `cc`; Phase 1 was verified with `make re CC=/c/Qt/Tools/llvm-mingw1706_64/bin/clang`.
 - `.gitattributes` enforces LF line endings for C, headers, Makefile, and Markdown to avoid Windows CRLF surprises in 42/Linux evaluation.
 - All canonical build/test verification should run in WSL Ubuntu 24.04, where `/usr/bin/cc` and `/usr/bin/make` are available.

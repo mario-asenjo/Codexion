@@ -1,12 +1,13 @@
 # Codexion Roadmap
 
 ## Phase 0 — Agent bootstrap
-- Create AGENTS/MEMORY/SOUL/skills/docs.
+- Create AGENTS/MEMORY/SOUL/docs.
+- Register public skill usage in AGENTS instead of storing repo-local skills.
 - Create README template.
 - Create checklist of evaluation risks.
 - Do not implement the final solution yet.
 
-Done when the repository contains the project brain and `coders/.gitkeep` only under source code.
+Done when the repository contains the project brain, no `skills/` directory, and `coders/.gitkeep` only under source code before implementation phases.
 
 ## Phase 1 — Project skeleton
 - Makefile.

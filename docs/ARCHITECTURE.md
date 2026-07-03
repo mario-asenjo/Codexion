@@ -10,6 +10,7 @@ Use a central simulation object passed to every thread. No mutable globals. Code
 This avoids the classic deadlock pattern where every coder holds one dongle while waiting for another.
 
 ## Recommended structures
+These are design notes for the phase that implements simulation state, not permission to pre-add unused structs. Keep `coders/codexion.h` limited to types used by the current phase.
 
 ```c
 typedef struct s_config

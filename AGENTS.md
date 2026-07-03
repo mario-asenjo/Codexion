@@ -5,6 +5,22 @@ This repository is a 42-style C/POSIX Threads project. Treat this file as the lo
 ## Prime directive
 Build Codexion incrementally. Do not generate a complete opaque solution in one pass. For each phase: explain the design and invariants briefly, implement the smallest useful slice, compile, test, update project memory/checklists, then stop for confirmation.
 
+## Mandatory session startup
+Before modifying code, every agent must read:
+1. `AGENTS.md`.
+2. `MEMORY.md`.
+3. `docs/SPEC_DISTILLED.md`.
+4. `docs/EVALUATION_CHECKLIST.md`.
+5. `docs/AI_USAGE_LOG.md`.
+6. The relevant docs under `docs/` for the current phase.
+
+Do not keep repo-local skill files. Use public Hermes skills plus this AGENTS contract:
+- Load public `ponytail` for every coding, review, refactor, simplification, or architecture decision. Apply it strictly: delete speculative scaffolding before adding new code.
+- Load public `github-operations-workflows` for branches, commits, pushes, PRs, CI, or GitHub authentication.
+- Load public `software-delivery-workflows` for planning, debugging, TDD, verification, and pre-commit review.
+
+Project-specific expert roles stay documented below as review lenses, not as files under a `skills/` directory.
+
 ## Hard constraints
 - Final binary name: `codexion`.
 - Build with `make` from repository root.
@@ -43,8 +59,8 @@ Owns the binary heap, FIFO/EDF comparators, stable ordering, tie-breakers, and r
 ### timing-monitor-specialist
 Owns `gettimeofday`, relative timestamps, precise sleeps, burnout detection within 10 ms, and low-busy-wait monitoring.
 
-### ponytail-optimizer
-Runs only after behavior is correct. Simplifies, removes duplication, shortens critical sections, and improves readability without sacrificing Norm or correctness.
+### ponytail-reviewer
+Uses the public `ponytail` skill. Removes speculative scaffolding, duplication, and cleverness while preserving C89, Norm, authorized functions, and current phase boundaries.
 
 ### evaluation-red-team
 Simulates the evaluator. Hunts zero-grade failures: warnings, forbidden functions, leaks, races, deadlocks, mixed logs, timing drift, edge cases, and recode friction.

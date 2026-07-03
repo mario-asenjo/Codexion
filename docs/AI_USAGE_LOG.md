@@ -35,3 +35,12 @@ AI was used to:
 - create temporary WSL-only heap verification instead of adding non-deliverable test files to the project tree.
 
 No simulation threads, dongle arbitration, monitor, or cooldown behavior were implemented in this phase.
+
+## Repository skill cleanup
+AI was used to:
+- replace repo-local skill markdown files with AGENTS.md instructions that point agents to public Hermes skills;
+- remove the repo-created Ponytail optimizer file in favor of the public `ponytail` skill;
+- apply a Ponytail review to delete unused future simulation structs from the current header;
+- clarify that `docs/ARCHITECTURE.md` structure examples are design notes, not pre-added scaffolding.
+
+No new simulator behavior was introduced by this cleanup.
