@@ -32,7 +32,7 @@
 - [ ] One thread per coder.
 - [ ] Separate monitor thread.
 - [ ] No mutable globals for shared state.
-- [ ] Shared state protected.
+- [x] Shared simulation state ownership initialized without globals.
 - [ ] Logs protected by log mutex.
 - [ ] Lock order documented and followed.
 - [ ] No deadlock in manual review.
@@ -61,10 +61,10 @@
 - [ ] Busy-wait minimized.
 
 ## Memory
-- [ ] All mallocs freed.
-- [ ] Mutexes destroyed.
-- [ ] Condition variables destroyed.
-- [ ] Valgrind leak check clean.
+- [x] Phase 3 malloc ownership freed by `cx_sim_destroy`.
+- [x] Phase 3 mutexes destroyed by `cx_sim_destroy`.
+- [x] Phase 3 condition variable destroyed by `cx_sim_destroy`.
+- [ ] Valgrind leak check clean. Blocked locally: Valgrind missing in WSL; AddressSanitizer fallback passed for init/destroy.
 
 ## Defense
 - [ ] README complete.

@@ -41,6 +41,8 @@ Status: implemented on branch `feat/phase-2-heap-scheduler`. Verified in WSL wit
 
 Done when init/destroy survives leak checks on simple paths.
 
+Status: implemented on branch `feat/phase-3-simulation-state`. Verified in WSL with `make re`, a temporary init/destroy test, AddressSanitizer leak detection, parser smoke tests, and forbidden-function scan. Valgrind was unavailable in WSL.
+
 ## Phase 4 — Coder lifecycle
 - Compile/debug/refactor loop.
 - Atomic acquisition/release of two dongles.
