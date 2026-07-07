@@ -14,6 +14,8 @@
 # define CX_MAX_TIME_MS 1000000L
 # define CX_MAX_COMPILES 1000000
 
+struct s_sim;
+
 typedef struct s_config
 {
 	int		number_of_coders;
@@ -25,6 +27,23 @@ typedef struct s_config
 	long	dongle_cooldown;
 	int		scheduler;
 } 	t_config;
+
+typedef struct s_dongle
+{
+	int				id;
+	int				owner_id;
+	long			available_at_ms;
+	pthread_mutex_t	lock;
+} 	t_dongle;
+
+typedef struct s_coder
+{
+	int				id;
+	int				compiles_done;
+	long			last_compile_start_ms;
+	pthread_t		thread;
+	struct s_sim	*sim;
+} 	t_coder;
 
 typedef struct s_request
 {
@@ -46,6 +65,23 @@ typedef struct s_log
 	long			start_ms;
 } 	t_log;
 
+typedef struct s_sim
+{
+	t_config		cfg;
+	t_coder			*coders;
+	t_dongle		*dongles;
+	t_heap			wait_heap;
+	pthread_mutex_t	state_lock;
+	pthread_mutex_t	log_lock;
+	pthread_cond_t	state_changed;
+	pthread_t		monitor_thread;
+	long			start_ms;
+	long			request_seq;
+	int				stop;
+	int				burned_coder_id;
+	int				completed_coders;
+} 	t_sim;
+
 int		cx_parse_config(int argc, char **argv, t_config *cfg);
 void	cx_print_usage(void);
 long	cx_now_ms(void);
@@ -60,5 +96,7 @@ int		cx_heap_pop(t_heap *heap, t_config *cfg, t_request *out);
 int		cx_heap_peek(t_heap *heap, t_request *out);
 int		cx_heap_request_before(t_config *cfg, t_request a, t_request b);
 int		cx_edf_tie_break(t_request a, t_request b);
+int		cx_sim_init(t_sim *sim, t_config *cfg);
+void	cx_sim_destroy(t_sim *sim);
 
 #endif

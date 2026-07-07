@@ -29,8 +29,13 @@ This file records durable project decisions. It is not a todo list and not a ses
 - Phase 2 heap is a fixed-capacity binary min-heap backed by `malloc`; no `realloc`, `qsort`, or library priority queue is used.
 - FIFO ordering is isolated in sequence comparison. EDF ordering compares earliest `deadline_ms` first, then delegates equal-deadline behavior to `cx_edf_tie_break`.
 - Current EDF tie-break policy is lower `coder_id` first, then lower request `seq`; recode to prefer higher `coder_id` only needs changing `cx_edf_tie_break`.
+- Phase 3 introduced `cx_sim_init` / `cx_sim_destroy` as the single ownership boundary for simulation state: config copy, coder array, dongle array, wait heap, `state_lock`, `log_lock`, and `state_changed`.
+- Phase 3 initializes coder ids from `1..n`, dongle ids from `0..n-1`, all dongles with `owner_id = 0` and `available_at_ms = 0`, and gives each coder a back-pointer to `t_sim`.
+- `cx_sim_destroy` destroys cond/mutex resources, heap, dongle locks, arrays, and then zeroes the `t_sim` object; it is intended for successfully initialized simulations.
+- Phase 3 still starts no coder or monitor threads; lifecycle/concurrency behavior begins in later phases.
+- Valgrind is currently missing in WSL and `sudo -n` is unavailable; Phase 3 used AddressSanitizer leak detection as fallback evidence.
 
 ## Future decisions to record
 - Exact sleep/timed-wait strategy.
 - Whether individual `dongle.lock` remains necessary after central arbitration.
-- Final file/module breakdown.
+- Final file/module breakdown after thread lifecycle is wired.

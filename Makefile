@@ -8,7 +8,8 @@ SRCS = $(SRC_DIR)/main.c \
 	$(SRC_DIR)/parse.c \
 	$(SRC_DIR)/time.c \
 	$(SRC_DIR)/log.c \
-	$(SRC_DIR)/heap.c
+	$(SRC_DIR)/heap.c \
+	$(SRC_DIR)/sim.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

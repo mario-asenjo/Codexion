@@ -36,6 +36,15 @@ AI was used to:
 
 No simulation threads, dongle arbitration, monitor, or cooldown behavior were implemented in this phase.
 
+## Phase 3
+AI was used to:
+- add the simulation state ownership boundary in `cx_sim_init` and `cx_sim_destroy`;
+- define cleanup order for heap, dongle mutexes, simulation mutexes/condition variable, and arrays;
+- create temporary WSL-only init/destroy tests for 1, 5, and 200 coders;
+- use AddressSanitizer leak detection because Valgrind is not installed in the current WSL environment and passwordless sudo is unavailable.
+
+No coder threads, monitor thread, scheduler arbitration, dongle acquisition, cooldown behavior, or logging lifecycle were implemented in this phase.
+
 ## Repository skill cleanup
 AI was used to:
 - replace repo-local skill markdown files with AGENTS.md instructions that point agents to public Hermes skills;
