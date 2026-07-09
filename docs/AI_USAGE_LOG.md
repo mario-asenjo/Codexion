@@ -61,3 +61,8 @@ No simulator behavior was introduced by this cleanup.
 AI was used to wire the smallest useful coder lifecycle: create/join coder threads, heap-ordered compile requests, atomic two-dongle ownership under `state_lock`, cooldown on release, and compile/debug/refactor logs.
 
 Deliberate simplification: burnout detection and monitor-thread stop coordination remain Phase 5; Phase 4 targets viable completion cases.
+
+## Phase 5
+AI was used to add the smallest monitor slice: one monitor thread, deadline scan under `state_lock`, coordinated stop/broadcast on burnout, one allowed burnout log after stop, and suppression of normal logs once stopped.
+
+Deliberate simplification: monitor timing uses bounded 1 ms sleeps instead of a larger timed-wait abstraction; upgrade only if later race/timing audits prove it necessary.

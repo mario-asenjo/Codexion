@@ -106,6 +106,7 @@ int		cx_sim_init(t_sim *sim, t_config *cfg);
 void	cx_sim_destroy(t_sim *sim);
 int		cx_sim_run(t_sim *sim);
 void	*cx_coder_routine(void *arg);
+void	*cx_monitor_routine(void *arg);
 int		cx_coder_wait_turn(t_coder *coder, t_request *request);
 void	cx_coder_release(t_coder *coder);
 void	cx_destroy_dongle_locks(t_sim *sim, int count);

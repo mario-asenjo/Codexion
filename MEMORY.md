@@ -35,12 +35,12 @@ This file records durable project decisions. It is not a todo list and not a ses
 - Phase 3 still starts no coder or monitor threads; lifecycle/concurrency behavior begins in later phases.
 - Valgrind is currently missing in WSL and `sudo -n` is unavailable; Phase 3 used AddressSanitizer leak detection as fallback evidence.
 - Norminette is available in WSL. The coder sources were split to satisfy 42 limits: max five functions per `.c`, 42 headers, and header typedef spacing.
-- Phase 4 starts and joins coder threads in `cx_sim_run`; no monitor thread exists yet.
+- Phase 4 starts and joins coder threads in `cx_sim_run`; monitor behavior begins in Phase 5.
 - Phase 4 grants two dongles atomically under `state_lock` after the coder request reaches the top of the heap and both dongles pass cooldown.
-- Phase 4 uses a deliberate 1 ms retry loop for cooldown/wait rechecks; upgrade to timed condition waits during monitor/timing work if needed.
+- Phase 4 uses a deliberate 1 ms retry loop for cooldown/wait rechecks; Phase 5 keeps bounded 1 ms monitor polling as the smallest timing mechanism that meets the 10 ms burnout requirement.
 - Phase 4 stops viable runs when all coders reach `number_of_compiles_required` after compile release.
+- Phase 5 starts a separate monitor thread before coder threads. It detects burnout from `last_compile_start_ms + time_to_burnout`, sets `stop`, broadcasts waiters, and logs exactly one burnout line while normal logs are suppressed after stop.
 
 ## Future decisions to record
-- Exact timed-wait strategy for monitor and cooldown precision.
 - Whether individual `dongle.lock` remains necessary after central arbitration.
 - Final file/module breakdown after thread lifecycle is wired.

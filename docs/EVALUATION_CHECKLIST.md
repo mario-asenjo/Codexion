@@ -3,7 +3,7 @@
 ## Build
 - [x] `make` builds `codexion` under WSL/Linux.
 - [x] `make re` cleans and rebuilds with available local compiler override.
-- [x] No warnings with `-Wall -Wextra -Werror -pthread` under clang verification.
+- [x] No warnings with `-Wall -Wextra -Werror -pthread` under WSL verification.
 - [x] `Makefile` has `NAME`, `all`, `clean`, `fclean`, `re`.
 - [x] No unnecessary relink under WSL/Linux `make`.
 
@@ -16,7 +16,7 @@
 - [x] `norminette coders` passes in WSL.
 
 ## Functions
-- [x] Only authorized functions used in current Phase 2 binary.
+- [x] Only authorized functions used in current binary.
 - [x] Forbidden function scan passed for current code.
 - [x] No libft.
 
@@ -30,11 +30,11 @@
 
 ## Concurrency
 - [x] One thread per coder in viable Phase 4 cases.
-- [ ] Separate monitor thread.
+- [x] Separate monitor thread.
 - [x] No mutable globals for shared state.
 - [x] Shared simulation state ownership initialized without globals.
 - [x] Logs protected by log mutex.
-- [ ] Lock order documented and followed.
+- [x] Lock order documented and followed for current Phase 5 paths.
 - [ ] No deadlock in manual review.
 - [ ] Helgrind/DRD checked if available.
 
@@ -46,19 +46,19 @@
 - [x] No `qsort`.
 
 ## Simulation correctness
-- [ ] One coder case handled.
+- [x] One coder case handled by monitor burnout.
 - [x] Dongle duplication prevented by atomic ownership under `state_lock`.
 - [x] Phase 4 cooldown enforced by `available_at_ms` before grant.
-- [ ] Stop by burnout handled.
+- [x] Stop by burnout handled.
 - [x] Stop by required compiles handled for viable Phase 4 cases.
-- [ ] No normal logs after stop.
+- [x] No normal logs after stop.
 - [ ] Starvation avoided for viable parameters as far as design allows.
 
 ## Timing
-- [ ] Timestamps are relative to simulation start.
-- [ ] Burnout logged within 10 ms reasonably under evaluation timings.
-- [ ] No use of forbidden timing functions.
-- [ ] Busy-wait minimized.
+- [x] Timestamps are relative to simulation start.
+- [x] Burnout logged within 10 ms reasonably under evaluation timings.
+- [x] No use of forbidden timing functions.
+- [x] Busy-wait minimized with bounded 1 ms sleeps in current timing paths.
 
 ## Memory
 - [x] Phase 3 malloc ownership freed by `cx_sim_destroy`.
@@ -73,5 +73,5 @@
 - [ ] User can explain deadlock prevention.
 - [ ] User can explain starvation strategy.
 - [ ] User can explain heap comparator.
-- [ ] User can explain monitor deadline detection.
+- [x] User can explain monitor deadline detection.
 - [ ] Recode EDF tie-breaker rehearsed.

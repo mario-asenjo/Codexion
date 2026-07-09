@@ -61,6 +61,8 @@ Status: implemented on branch `feat/phase-4-coder-lifecycle`. Scope is viable co
 
 Done when forced burnout cases print one coordinated burnout line quickly.
 
+Status: in progress on branch `feat/phase-5-monitor-burnout`. Current slice adds monitor-thread burnout stop and normal-log suppression after stop.
+
 ## Phase 6 — EDF/FIFO validation
 - Viable cases.
 - Burnout cases.

@@ -18,8 +18,15 @@ void	cx_log_state(t_sim *sim, int coder_id, const char *message)
 
 	if (sim == NULL || message == NULL)
 		return ;
+	pthread_mutex_lock(&sim->state_lock);
+	if (sim->stop && strcmp(message, "burned out") != 0)
+	{
+		pthread_mutex_unlock(&sim->state_lock);
+		return ;
+	}
 	pthread_mutex_lock(&sim->log_lock);
 	timestamp = cx_now_ms() - sim->start_ms;
 	printf("%ld %d %s\n", timestamp, coder_id, message);
 	pthread_mutex_unlock(&sim->log_lock);
+	pthread_mutex_unlock(&sim->state_lock);
 }
