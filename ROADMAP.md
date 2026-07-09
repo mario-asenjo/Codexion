@@ -82,7 +82,7 @@ Status: implemented on branch `docs/phase-6-scheduler-validation` and merged via
 
 Done when no zero-grade issue remains known.
 
-Status: in progress on branch `docs/phase-7-audit`. Current slice documents the WSL evaluator audit without changing simulator code.
+Status: implemented on branch `docs/phase-7-audit` and merged via PR #21.
 
 ## Phase 8 — README and defense
 - Final README.
@@ -92,6 +92,8 @@ Status: in progress on branch `docs/phase-7-audit`. Current slice documents the 
 - Thread synchronization mechanisms.
 
 Done when the project can be defended without reading code line by line.
+
+Status: in progress on branch `docs/phase-8-readme-defense`. Current slice completes README and peer-defense notes without changing simulator code.
 
 ## Phase 9 — Ponytail optimization
 - Only after green tests.
