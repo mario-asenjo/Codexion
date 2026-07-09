@@ -45,6 +45,9 @@ AI was used to:
 
 No coder threads, monitor thread, scheduler arbitration, dongle acquisition, cooldown behavior, or logging lifecycle were implemented in this phase.
 
+## Norminette cleanup
+AI was used to split existing files only where Norminette required it. No behavior change was intended: heap pop/order helpers, usage printing, and simulation setup helpers moved into smaller files.
+
 ## Repository skill cleanup
 AI was used to:
 - replace repo-local skill markdown files with AGENTS.md instructions that point agents to public Hermes skills;

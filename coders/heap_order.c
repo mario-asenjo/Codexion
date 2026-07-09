@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   heap_order.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,22 +12,36 @@
 
 #include "codexion.h"
 
-int	main(int argc, char **argv)
+void	cx_heap_swap(t_request *a, t_request *b)
 {
-	t_config	cfg;
-	t_sim		sim;
+	t_request	tmp;
 
-	memset(&cfg, 0, sizeof(cfg));
-	if (!cx_parse_config(argc, argv, &cfg))
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+static int	cx_fifo_tie_break(t_request a, t_request b)
+{
+	if (a.seq != b.seq)
+		return (a.seq < b.seq);
+	return (a.coder_id < b.coder_id);
+}
+
+int	cx_edf_tie_break(t_request a, t_request b)
+{
+	if (a.coder_id != b.coder_id)
+		return (a.coder_id < b.coder_id);
+	return (a.seq < b.seq);
+}
+
+int	cx_heap_request_before(t_config *cfg, t_request a, t_request b)
+{
+	if (cfg != NULL && cfg->scheduler == CX_SCHED_EDF)
 	{
-		cx_print_usage();
-		return (1);
+		if (a.deadline_ms != b.deadline_ms)
+			return (a.deadline_ms < b.deadline_ms);
+		return (cx_edf_tie_break(a, b));
 	}
-	if (!cx_sim_init(&sim, &cfg))
-	{
-		fprintf(stderr, "codexion: initialization failed\n");
-		return (1);
-	}
-	cx_sim_destroy(&sim);
-	return (0);
+	return (cx_fifo_tie_break(a, b));
 }

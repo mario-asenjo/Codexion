@@ -8,12 +8,12 @@
 - [x] No unnecessary relink under WSL/Linux `make`.
 
 ## Language and Norm
-- [x] C89-compatible declarations and comments in current code.
+- [x] C89-compatible declarations and comments.
 - [x] No `//` comments in C files.
 - [x] No declarations inside `for` statements.
 - [x] No VLA.
 - [x] No `<stdbool.h>`.
-- [ ] 42 Norm style reviewed.
+- [x] `norminette coders` passes in WSL.
 
 ## Functions
 - [x] Only authorized functions used in current Phase 2 binary.
