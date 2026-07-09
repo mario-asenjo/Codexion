@@ -71,3 +71,8 @@ Deliberate simplification: monitor timing uses bounded 1 ms sleeps instead of a 
 AI was used to define and run the smallest scheduler validation set: one-coder burnout, forced burnout stop coordination, viable FIFO, viable EDF, and one scenario where FIFO/EDF compile sequences visibly differ.
 
 No simulator code was changed in this phase.
+
+## Phase 7
+AI was used to run and document the evaluator audit: WSL build, Norminette, forbidden-function scan, Valgrind Memcheck, Helgrind, burnout smoke, no-relink check, and manual lock-order review.
+
+No simulator code was changed in this phase.
