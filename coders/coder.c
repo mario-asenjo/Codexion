@@ -76,6 +76,8 @@ void	*cx_coder_routine(void *arg)
 			return (NULL);
 		cx_compile(coder);
 		cx_coder_release(coder);
+		if (cx_should_stop(coder->sim))
+			return (NULL);
 		if (cx_mark_compile_done(coder))
 			return (NULL);
 		cx_debug_and_refactor(coder);

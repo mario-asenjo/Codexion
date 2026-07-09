@@ -20,8 +20,21 @@ static void	cx_stop_created(t_sim *sim, int count)
 	sim->stop = 1;
 	pthread_cond_broadcast(&sim->state_changed);
 	pthread_mutex_unlock(&sim->state_lock);
+	pthread_join(sim->monitor_thread, NULL);
 	i = 0;
 	while (i < count)
+	{
+		pthread_join(sim->coders[i].thread, NULL);
+		i++;
+	}
+}
+
+static void	cx_join_coders(t_sim *sim)
+{
+	int	i;
+
+	i = 0;
+	while (i < sim->cfg.number_of_coders)
 	{
 		pthread_join(sim->coders[i].thread, NULL);
 		i++;
@@ -32,8 +45,11 @@ int	cx_sim_run(t_sim *sim)
 {
 	int	i;
 
+	if (pthread_create(&sim->monitor_thread, NULL,
+			cx_monitor_routine, sim) != 0)
+		return (0);
 	if (sim->cfg.number_of_coders == 1)
-		return (1);
+		return (pthread_join(sim->monitor_thread, NULL), 1);
 	i = 0;
 	while (i < sim->cfg.number_of_coders)
 	{
@@ -45,11 +61,7 @@ int	cx_sim_run(t_sim *sim)
 		}
 		i++;
 	}
-	i = 0;
-	while (i < sim->cfg.number_of_coders)
-	{
-		pthread_join(sim->coders[i].thread, NULL);
-		i++;
-	}
+	cx_join_coders(sim);
+	pthread_join(sim->monitor_thread, NULL);
 	return (1);
 }
