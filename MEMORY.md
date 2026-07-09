@@ -40,7 +40,7 @@ This file records durable project decisions. It is not a todo list and not a ses
 - Phase 4 uses a deliberate 1 ms retry loop for cooldown/wait rechecks; Phase 5 keeps bounded 1 ms monitor polling as the smallest timing mechanism that meets the 10 ms burnout requirement.
 - Phase 4 stops viable runs when all coders reach `number_of_compiles_required` after compile release.
 - Phase 5 starts a separate monitor thread before coder threads. It detects burnout from `last_compile_start_ms + time_to_burnout`, sets `stop`, broadcasts waiters, and logs exactly one burnout line while normal logs are suppressed after stop.
+- Phase 9 removed unused per-dongle mutexes; dongle ownership and cooldown remain protected by central `state_lock`.
 
 ## Future decisions to record
-- Whether individual `dongle.lock` remains necessary after central arbitration.
 - Final file/module breakdown after thread lifecycle is wired.

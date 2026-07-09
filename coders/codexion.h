@@ -45,7 +45,6 @@ typedef struct s_dongle
 	int				id;
 	int				owner_id;
 	long			available_at_ms;
-	pthread_mutex_t	lock;
 }	t_dongle;
 
 typedef struct s_coder
@@ -109,9 +108,8 @@ void	*cx_coder_routine(void *arg);
 void	*cx_monitor_routine(void *arg);
 int		cx_coder_wait_turn(t_coder *coder, t_request *request);
 void	cx_coder_release(t_coder *coder);
-void	cx_destroy_dongle_locks(t_sim *sim, int count);
 void	cx_init_coders(t_sim *sim);
-int		cx_init_dongles(t_sim *sim);
+void	cx_init_dongles(t_sim *sim);
 void	cx_free_owned_memory(t_sim *sim);
 int		cx_alloc_sim_arrays(t_sim *sim);
 
