@@ -12,18 +12,6 @@
 
 #include "codexion.h"
 
-void	cx_destroy_dongle_locks(t_sim *sim, int count)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		pthread_mutex_destroy(&sim->dongles[i].lock);
-		i++;
-	}
-}
-
 void	cx_init_coders(t_sim *sim)
 {
 	int	i;
@@ -39,7 +27,7 @@ void	cx_init_coders(t_sim *sim)
 	}
 }
 
-int	cx_init_dongles(t_sim *sim)
+void	cx_init_dongles(t_sim *sim)
 {
 	int	i;
 
@@ -49,14 +37,8 @@ int	cx_init_dongles(t_sim *sim)
 		sim->dongles[i].id = i;
 		sim->dongles[i].owner_id = 0;
 		sim->dongles[i].available_at_ms = 0;
-		if (pthread_mutex_init(&sim->dongles[i].lock, NULL) != 0)
-		{
-			cx_destroy_dongle_locks(sim, i);
-			return (0);
-		}
 		i++;
 	}
-	return (1);
 }
 
 void	cx_free_owned_memory(t_sim *sim)

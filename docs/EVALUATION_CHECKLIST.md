@@ -37,6 +37,7 @@
 - [x] Lock order documented and followed for current Phase 5 paths.
 - [x] No deadlock in manual review.
 - [x] Helgrind checked clean in WSL.
+- [x] Unused per-dongle mutex scaffolding removed in Phase 9.
 
 ## Scheduler and heap
 - [x] Custom binary heap implemented.
@@ -76,3 +77,6 @@
 - [x] User can explain heap comparator.
 - [x] User can explain monitor deadline detection.
 - [ ] Recode EDF tie-breaker rehearsed.
+
+## Simplification
+- [x] Phase 9 Ponytail pass removed unused per-dongle mutex scaffolding.

@@ -70,7 +70,7 @@ Lock order:
 state_lock -> log_lock
 ```
 
-Dongle mutexes exist as owned resources but current arbitration uses `state_lock`; no coder locks one dongle while waiting for another.
+Dongle ownership and cooldown use `state_lock`; no coder locks one dongle while waiting for another.
 
 ## Deadlock prevention
 

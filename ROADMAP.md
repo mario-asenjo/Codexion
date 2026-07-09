@@ -93,7 +93,7 @@ Status: implemented on branch `docs/phase-7-audit` and merged via PR #21.
 
 Done when the project can be defended without reading code line by line.
 
-Status: in progress on branch `docs/phase-8-readme-defense`. Current slice completes README and peer-defense notes without changing simulator code.
+Status: implemented on branch `docs/phase-8-readme-defense` and merged via PR #22.
 
 ## Phase 9 — Ponytail optimization
 - Only after green tests.
@@ -103,6 +103,8 @@ Status: in progress on branch `docs/phase-8-readme-defense`. Current slice compl
 - No behavior change without tests.
 
 Done when code is simpler and still passes the same checks.
+
+Status: in progress on branch `refactor/phase-9-ponytail`. Current slice removes unused per-dongle mutex scaffolding while preserving central arbitration.
 
 ## Phase 10 — Recode readiness
 - Practice EDF tie-breaker change.

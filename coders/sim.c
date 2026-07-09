@@ -42,14 +42,9 @@ static int	cx_sim_init_storage(t_sim *sim)
 	if (!cx_alloc_sim_arrays(sim))
 		return (0);
 	cx_init_coders(sim);
-	if (!cx_init_dongles(sim))
-	{
-		cx_free_owned_memory(sim);
-		return (0);
-	}
+	cx_init_dongles(sim);
 	if (!cx_heap_init(&sim->wait_heap, sim->cfg.number_of_coders))
 	{
-		cx_destroy_dongle_locks(sim, sim->cfg.number_of_coders);
 		cx_free_owned_memory(sim);
 		return (0);
 	}
@@ -68,7 +63,6 @@ int	cx_sim_init(t_sim *sim, t_config *cfg)
 	if (!cx_init_sync(sim))
 	{
 		cx_heap_destroy(&sim->wait_heap);
-		cx_destroy_dongle_locks(sim, sim->cfg.number_of_coders);
 		cx_free_owned_memory(sim);
 		return (0);
 	}
@@ -81,7 +75,6 @@ void	cx_sim_destroy(t_sim *sim)
 		return ;
 	cx_destroy_sync(sim);
 	cx_heap_destroy(&sim->wait_heap);
-	cx_destroy_dongle_locks(sim, sim->cfg.number_of_coders);
 	cx_free_owned_memory(sim);
 	memset(sim, 0, sizeof(*sim));
 }

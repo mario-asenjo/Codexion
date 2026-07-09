@@ -32,7 +32,7 @@ Observed lock nesting follows the project contract:
 state_lock -> log_lock
 ```
 
-No code path takes `log_lock` before `state_lock`. Dongle mutexes are initialized/destroyed but not used in current arbitration; ownership and cooldown are guarded by `state_lock`.
+No code path takes `log_lock` before `state_lock`. Dongle ownership and cooldown are guarded by `state_lock`; there are no per-dongle mutexes in the current implementation.
 
 ## Remaining follow-up
 

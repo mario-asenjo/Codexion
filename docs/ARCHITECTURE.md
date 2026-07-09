@@ -32,7 +32,6 @@ typedef struct s_dongle
     int             id;
     int             owner_id;
     long            available_at_ms;
-    pthread_mutex_t lock;
 }   t_dongle;
 ```
 
@@ -86,8 +85,7 @@ typedef struct s_sim
 
 ## Lock ordering
 1. `state_lock`
-2. `dongle.lock`, only if retained after central arbitration
-3. `log_lock`
+2. `log_lock`
 
 Never acquire `state_lock` after `log_lock`.
 

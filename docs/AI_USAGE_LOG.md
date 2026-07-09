@@ -81,3 +81,6 @@ No simulator code was changed in this phase.
 AI was used to replace the README placeholder sections with concise defense-ready explanations for usage, scheduler policy, synchronization, deadlock prevention, starvation strategy, monitor stop handling, blocking cases, validation evidence, and AI transparency.
 
 No simulator code was changed in this phase.
+
+## Phase 9
+AI was used for a Ponytail simplification pass that removed unused per-dongle mutex state, initialization, destruction, prototypes, and documentation references. Central `state_lock` arbitration remains unchanged.
