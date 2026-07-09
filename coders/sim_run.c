@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   sim_run.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,27 +12,44 @@
 
 #include "codexion.h"
 
-int	main(int argc, char **argv)
+static void	cx_stop_created(t_sim *sim, int count)
 {
-	t_config	cfg;
-	t_sim		sim;
+	int	i;
 
-	memset(&cfg, 0, sizeof(cfg));
-	if (!cx_parse_config(argc, argv, &cfg))
+	pthread_mutex_lock(&sim->state_lock);
+	sim->stop = 1;
+	pthread_cond_broadcast(&sim->state_changed);
+	pthread_mutex_unlock(&sim->state_lock);
+	i = 0;
+	while (i < count)
 	{
-		cx_print_usage();
-		return (1);
+		pthread_join(sim->coders[i].thread, NULL);
+		i++;
 	}
-	if (!cx_sim_init(&sim, &cfg))
+}
+
+int	cx_sim_run(t_sim *sim)
+{
+	int	i;
+
+	if (sim->cfg.number_of_coders == 1)
+		return (1);
+	i = 0;
+	while (i < sim->cfg.number_of_coders)
 	{
-		fprintf(stderr, "codexion: initialization failed\n");
-		return (1);
+		if (pthread_create(&sim->coders[i].thread, NULL,
+				cx_coder_routine, &sim->coders[i]) != 0)
+		{
+			cx_stop_created(sim, i);
+			return (0);
+		}
+		i++;
 	}
-	if (!cx_sim_run(&sim))
+	i = 0;
+	while (i < sim->cfg.number_of_coders)
 	{
-		cx_sim_destroy(&sim);
-		return (1);
+		pthread_join(sim->coders[i].thread, NULL);
+		i++;
 	}
-	cx_sim_destroy(&sim);
-	return (0);
+	return (1);
 }

@@ -29,11 +29,11 @@
 - [x] Reasonable ranges enforced for Phase 1 policy.
 
 ## Concurrency
-- [ ] One thread per coder.
+- [x] One thread per coder in viable Phase 4 cases.
 - [ ] Separate monitor thread.
-- [ ] No mutable globals for shared state.
+- [x] No mutable globals for shared state.
 - [x] Shared simulation state ownership initialized without globals.
-- [ ] Logs protected by log mutex.
+- [x] Logs protected by log mutex.
 - [ ] Lock order documented and followed.
 - [ ] No deadlock in manual review.
 - [ ] Helgrind/DRD checked if available.
@@ -47,10 +47,10 @@
 
 ## Simulation correctness
 - [ ] One coder case handled.
-- [ ] Dongle duplication impossible.
-- [ ] Cooldown enforced.
+- [x] Dongle duplication prevented by atomic ownership under `state_lock`.
+- [x] Phase 4 cooldown enforced by `available_at_ms` before grant.
 - [ ] Stop by burnout handled.
-- [ ] Stop by required compiles handled.
+- [x] Stop by required compiles handled for viable Phase 4 cases.
 - [ ] No normal logs after stop.
 - [ ] Starvation avoided for viable parameters as far as design allows.
 

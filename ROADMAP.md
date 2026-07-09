@@ -51,6 +51,8 @@ Status: implemented on branch `feat/phase-3-simulation-state`. Verified in WSL w
 
 Done when small viable cases complete without mixed logs or obvious starvation.
 
+Status: implemented on branch `feat/phase-4-coder-lifecycle`. Scope is viable completion cases; burnout monitoring remains Phase 5.
+
 ## Phase 5 — Monitor
 - Deadline detection.
 - Stop flag.
