@@ -33,7 +33,7 @@ This file records durable project decisions. It is not a todo list and not a ses
 - Phase 3 initializes coder ids from `1..n`, dongle ids from `0..n-1`, all dongles with `owner_id = 0` and `available_at_ms = 0`, and gives each coder a back-pointer to `t_sim`.
 - `cx_sim_destroy` destroys cond/mutex resources, heap, dongle locks, arrays, and then zeroes the `t_sim` object; it is intended for successfully initialized simulations.
 - Phase 3 still starts no coder or monitor threads; lifecycle/concurrency behavior begins in later phases.
-- Valgrind is currently missing in WSL and `sudo -n` is unavailable; Phase 3 used AddressSanitizer leak detection as fallback evidence.
+- Valgrind is available in WSL as of Phase 7; Memcheck and Helgrind are the canonical leak/race audit tools.
 - Norminette is available in WSL. The coder sources were split to satisfy 42 limits: max five functions per `.c`, 42 headers, and header typedef spacing.
 - Phase 4 starts and joins coder threads in `cx_sim_run`; monitor behavior begins in Phase 5.
 - Phase 4 grants two dongles atomically under `state_lock` after the coder request reaches the top of the heap and both dongles pass cooldown.

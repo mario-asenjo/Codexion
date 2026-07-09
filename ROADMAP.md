@@ -72,7 +72,7 @@ Status: implemented on branch `feat/phase-5-monitor-burnout` and merged via PR #
 
 Done when manual scenarios demonstrate both policies.
 
-Status: in progress on branch `docs/phase-6-scheduler-validation`. Current slice documents and verifies scheduler behavior without changing simulator code.
+Status: implemented on branch `docs/phase-6-scheduler-validation` and merged via PR #20.
 
 ## Phase 7 — Memory/race/deadlock audit
 - Valgrind leaks.
@@ -81,6 +81,8 @@ Status: in progress on branch `docs/phase-6-scheduler-validation`. Current slice
 - Forbidden function scan.
 
 Done when no zero-grade issue remains known.
+
+Status: in progress on branch `docs/phase-7-audit`. Current slice documents the WSL evaluator audit without changing simulator code.
 
 ## Phase 8 — README and defense
 - Final README.

@@ -35,8 +35,8 @@
 - [x] Shared simulation state ownership initialized without globals.
 - [x] Logs protected by log mutex.
 - [x] Lock order documented and followed for current Phase 5 paths.
-- [ ] No deadlock in manual review.
-- [ ] Helgrind/DRD checked if available.
+- [x] No deadlock in manual review.
+- [x] Helgrind checked clean in WSL.
 
 ## Scheduler and heap
 - [x] Custom binary heap implemented.
@@ -65,13 +65,13 @@
 - [x] Phase 3 malloc ownership freed by `cx_sim_destroy`.
 - [x] Phase 3 mutexes destroyed by `cx_sim_destroy`.
 - [x] Phase 3 condition variable destroyed by `cx_sim_destroy`.
-- [ ] Valgrind leak check clean. Blocked locally: Valgrind missing in WSL; AddressSanitizer fallback passed for init/destroy.
+- [x] Valgrind leak check clean in WSL.
 
 ## Defense
 - [ ] README complete.
 - [x] AI usage log honest.
 - [x] Public skill usage is registered in `AGENTS.md`; no repo-local skill files remain.
-- [ ] User can explain deadlock prevention.
+- [x] User can explain deadlock prevention.
 - [ ] User can explain starvation strategy.
 - [ ] User can explain heap comparator.
 - [x] User can explain monitor deadline detection.

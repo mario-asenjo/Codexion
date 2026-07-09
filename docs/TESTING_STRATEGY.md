@@ -64,6 +64,8 @@ valgrind --tool=helgrind ./codexion 5 800 100 100 100 3 60 edf
 
 If Valgrind is unavailable on the host, document that limitation and run the strongest available alternative. Do not weaken the code because the tool is unavailable.
 
+Phase 7 audit evidence is in `docs/AUDIT_REPORT.md`.
+
 ## Forbidden function scan
 Use source scans as a first pass only. Final confidence comes from review and compilation:
 
