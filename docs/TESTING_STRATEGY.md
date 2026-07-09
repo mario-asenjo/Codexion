@@ -39,6 +39,8 @@ Both must be clean: no compiler warnings and no unnecessary relink.
 - Refactoring timing is respected.
 - Logs are serialized even under many coders.
 
+Phase 6 scheduler validation evidence is in `docs/SCHEDULER_VALIDATION.md`.
+
 ## Invalid input tests
 ```sh
 ./codexion
