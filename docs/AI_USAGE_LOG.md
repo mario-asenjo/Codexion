@@ -66,3 +66,8 @@ Deliberate simplification: burnout detection and monitor-thread stop coordinatio
 AI was used to add the smallest monitor slice: one monitor thread, deadline scan under `state_lock`, coordinated stop/broadcast on burnout, one allowed burnout log after stop, and suppression of normal logs once stopped.
 
 Deliberate simplification: monitor timing uses bounded 1 ms sleeps instead of a larger timed-wait abstraction; upgrade only if later race/timing audits prove it necessary.
+
+## Phase 6
+AI was used to define and run the smallest scheduler validation set: one-coder burnout, forced burnout stop coordination, viable FIFO, viable EDF, and one scenario where FIFO/EDF compile sequences visibly differ.
+
+No simulator code was changed in this phase.

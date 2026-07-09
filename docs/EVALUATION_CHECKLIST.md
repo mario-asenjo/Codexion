@@ -42,6 +42,7 @@
 - [x] Custom binary heap implemented.
 - [x] FIFO ordering demonstrated by temporary WSL heap test.
 - [x] EDF ordering demonstrated by temporary WSL heap test.
+- [x] FIFO/EDF runtime behavior differs on documented Phase 6 scenario.
 - [x] EDF tie-breaker isolated for recode in `cx_edf_tie_break`.
 - [x] No `qsort`.
 
@@ -52,7 +53,7 @@
 - [x] Stop by burnout handled.
 - [x] Stop by required compiles handled for viable Phase 4 cases.
 - [x] No normal logs after stop.
-- [ ] Starvation avoided for viable parameters as far as design allows.
+- [x] Starvation avoided for documented viable Phase 6 scenarios.
 
 ## Timing
 - [x] Timestamps are relative to simulation start.

@@ -61,7 +61,7 @@ Status: implemented on branch `feat/phase-4-coder-lifecycle`. Scope is viable co
 
 Done when forced burnout cases print one coordinated burnout line quickly.
 
-Status: in progress on branch `feat/phase-5-monitor-burnout`. Current slice adds monitor-thread burnout stop and normal-log suppression after stop.
+Status: implemented on branch `feat/phase-5-monitor-burnout` and merged via PR #19.
 
 ## Phase 6 — EDF/FIFO validation
 - Viable cases.
@@ -71,6 +71,8 @@ Status: in progress on branch `feat/phase-5-monitor-burnout`. Current slice adds
 - No mixed logs.
 
 Done when manual scenarios demonstrate both policies.
+
+Status: in progress on branch `docs/phase-6-scheduler-validation`. Current slice documents and verifies scheduler behavior without changing simulator code.
 
 ## Phase 7 — Memory/race/deadlock audit
 - Valgrind leaks.
