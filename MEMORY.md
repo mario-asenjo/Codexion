@@ -34,6 +34,7 @@ This file records durable project decisions. It is not a todo list and not a ses
 - `cx_sim_destroy` destroys cond/mutex resources, heap, dongle locks, arrays, and then zeroes the `t_sim` object; it is intended for successfully initialized simulations.
 - Phase 3 still starts no coder or monitor threads; lifecycle/concurrency behavior begins in later phases.
 - Valgrind is currently missing in WSL and `sudo -n` is unavailable; Phase 3 used AddressSanitizer leak detection as fallback evidence.
+- Norminette is available in WSL. The coder sources were split to satisfy 42 limits: max five functions per `.c`, 42 headers, and header typedef spacing.
 
 ## Future decisions to record
 - Exact sleep/timed-wait strategy.

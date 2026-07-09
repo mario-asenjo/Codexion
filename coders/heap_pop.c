@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   heap_pop.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,22 +12,26 @@
 
 #include "codexion.h"
 
-int	main(int argc, char **argv)
+int	cx_heap_pop(t_heap *heap, t_config *cfg, t_request *out)
 {
-	t_config	cfg;
-	t_sim		sim;
+	if (heap == NULL || heap->items == NULL || heap->size <= 0)
+		return (0);
+	if (out != NULL)
+		*out = heap->items[0];
+	heap->size--;
+	if (heap->size > 0)
+	{
+		heap->items[0] = heap->items[heap->size];
+		cx_heap_sift_down(heap, cfg, 0);
+	}
+	return (1);
+}
 
-	memset(&cfg, 0, sizeof(cfg));
-	if (!cx_parse_config(argc, argv, &cfg))
-	{
-		cx_print_usage();
-		return (1);
-	}
-	if (!cx_sim_init(&sim, &cfg))
-	{
-		fprintf(stderr, "codexion: initialization failed\n");
-		return (1);
-	}
-	cx_sim_destroy(&sim);
-	return (0);
+int	cx_heap_peek(t_heap *heap, t_request *out)
+{
+	if (heap == NULL || heap->items == NULL || heap->size <= 0
+		|| out == NULL)
+		return (0);
+	*out = heap->items[0];
+	return (1);
 }

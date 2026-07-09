@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   usage.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,22 +12,11 @@
 
 #include "codexion.h"
 
-int	main(int argc, char **argv)
+void	cx_print_usage(void)
 {
-	t_config	cfg;
-	t_sim		sim;
-
-	memset(&cfg, 0, sizeof(cfg));
-	if (!cx_parse_config(argc, argv, &cfg))
-	{
-		cx_print_usage();
-		return (1);
-	}
-	if (!cx_sim_init(&sim, &cfg))
-	{
-		fprintf(stderr, "codexion: initialization failed\n");
-		return (1);
-	}
-	cx_sim_destroy(&sim);
-	return (0);
+	fprintf(stderr, "Usage: ./codexion number_of_coders time_to_burnout ");
+	fprintf(stderr, "time_to_compile time_to_debug time_to_refactor ");
+	fprintf(stderr, "number_of_compiles_required dongle_cooldown ");
+	fprintf(stderr, "scheduler\n");
+	fprintf(stderr, "scheduler must be exactly: fifo or edf\n");
 }

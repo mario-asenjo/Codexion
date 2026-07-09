@@ -5,10 +5,14 @@ CFLAGS = -Wall -Wextra -Werror -pthread
 
 SRC_DIR = coders
 SRCS = $(SRC_DIR)/main.c \
+	$(SRC_DIR)/usage.c \
 	$(SRC_DIR)/parse.c \
 	$(SRC_DIR)/time.c \
 	$(SRC_DIR)/log.c \
+	$(SRC_DIR)/heap_order.c \
 	$(SRC_DIR)/heap.c \
+	$(SRC_DIR)/heap_pop.c \
+	$(SRC_DIR)/sim_setup.c \
 	$(SRC_DIR)/sim.c
 OBJS = $(SRCS:.c=.o)
 
