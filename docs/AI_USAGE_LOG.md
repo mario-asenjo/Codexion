@@ -76,3 +76,8 @@ No simulator code was changed in this phase.
 AI was used to run and document the evaluator audit: WSL build, Norminette, forbidden-function scan, Valgrind Memcheck, Helgrind, burnout smoke, no-relink check, and manual lock-order review.
 
 No simulator code was changed in this phase.
+
+## Phase 8
+AI was used to replace the README placeholder sections with concise defense-ready explanations for usage, scheduler policy, synchronization, deadlock prevention, starvation strategy, monitor stop handling, blocking cases, validation evidence, and AI transparency.
+
+No simulator code was changed in this phase.

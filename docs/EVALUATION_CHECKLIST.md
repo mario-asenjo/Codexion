@@ -68,11 +68,11 @@
 - [x] Valgrind leak check clean in WSL.
 
 ## Defense
-- [ ] README complete.
+- [x] README complete.
 - [x] AI usage log honest.
 - [x] Public skill usage is registered in `AGENTS.md`; no repo-local skill files remain.
 - [x] User can explain deadlock prevention.
-- [ ] User can explain starvation strategy.
-- [ ] User can explain heap comparator.
+- [x] User can explain starvation strategy.
+- [x] User can explain heap comparator.
 - [x] User can explain monitor deadline detection.
 - [ ] Recode EDF tie-breaker rehearsed.
