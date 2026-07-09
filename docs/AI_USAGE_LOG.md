@@ -55,4 +55,9 @@ AI was used to:
 - apply a Ponytail review to delete unused future simulation structs from the current header;
 - clarify that `docs/ARCHITECTURE.md` structure examples are design notes, not pre-added scaffolding.
 
-No new simulator behavior was introduced by this cleanup.
+No simulator behavior was introduced by this cleanup.
+
+## Phase 4
+AI was used to wire the smallest useful coder lifecycle: create/join coder threads, heap-ordered compile requests, atomic two-dongle ownership under `state_lock`, cooldown on release, and compile/debug/refactor logs.
+
+Deliberate simplification: burnout detection and monitor-thread stop coordination remain Phase 5; Phase 4 targets viable completion cases.

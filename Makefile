@@ -13,7 +13,11 @@ SRCS = $(SRC_DIR)/main.c \
 	$(SRC_DIR)/heap.c \
 	$(SRC_DIR)/heap_pop.c \
 	$(SRC_DIR)/sim_setup.c \
-	$(SRC_DIR)/sim.c
+	$(SRC_DIR)/sim.c \
+	$(SRC_DIR)/sim_run.c \
+	$(SRC_DIR)/coder.c \
+	$(SRC_DIR)/coder_wait.c \
+	$(SRC_DIR)/coder_release.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
