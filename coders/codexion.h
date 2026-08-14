@@ -6,7 +6,7 @@
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 00:00:00 by masenjo           #+#    #+#             */
-/*   Updated: 2026/08/14 16:30:00 by masenjo          ###   ########.fr       */
+/*   Updated: 2026/08/14 16:40:00 by masenjo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,15 @@ int		cx_sim_run(t_sim *sim);
 void	*cx_coder_routine(void *arg);
 void	*cx_monitor_routine(void *arg);
 int		cx_coder_wait_turn(t_coder *coder, t_request *request);
+int		cx_try_grant(t_coder *coder, t_request *request);
 void	cx_coder_release(t_coder *coder);
+void	cx_single_coder(t_coder *coder);
 void	cx_init_coders(t_sim *sim);
 void	cx_free_owned_memory(t_sim *sim);
 int		cx_alloc_sim_arrays(t_sim *sim);
 int		cx_init_dongles(t_sim *sim);
 void	cx_destroy_dongles(t_sim *sim, int count);
+void	cx_lock_dongle_pair(t_sim *sim, int left, int right);
+void	cx_unlock_dongle_pair(t_sim *sim, int left, int right);
 
 #endif
