@@ -6,7 +6,7 @@
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 00:00:00 by masenjo           #+#    #+#             */
-/*   Updated: 2026/07/02 00:00:00 by masenjo          ###   ########.fr       */
+/*   Updated: 2026/08/14 16:30:00 by masenjo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,6 @@ void	cx_init_coders(t_sim *sim)
 		sim->coders[i].compiles_done = 0;
 		sim->coders[i].last_compile_start_ms = 0;
 		sim->coders[i].sim = sim;
-		i++;
-	}
-}
-
-void	cx_init_dongles(t_sim *sim)
-{
-	int	i;
-
-	i = 0;
-	while (i < sim->cfg.number_of_coders)
-	{
-		sim->dongles[i].id = i;
-		sim->dongles[i].owner_id = 0;
-		sim->dongles[i].available_at_ms = 0;
 		i++;
 	}
 }
