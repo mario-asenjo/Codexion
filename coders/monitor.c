@@ -6,7 +6,7 @@
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 00:00:00 by masenjo           #+#    #+#             */
-/*   Updated: 2026/07/02 00:00:00 by masenjo          ###   ########.fr       */
+/*   Updated: 2026/08/14 16:30:00 by masenjo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ static int	cx_burned_coder(t_sim *sim, long now)
 	while (i < sim->cfg.number_of_coders)
 	{
 		coder = &sim->coders[i];
-		if (coder->compiles_done < sim->cfg.number_of_compiles_required
-			&& now - coder->last_compile_start_ms >= sim->cfg.time_to_burnout)
+		if (now - coder->last_compile_start_ms >= sim->cfg.time_to_burnout)
 			return (coder->id);
 		i++;
 	}
@@ -43,7 +42,6 @@ static int	cx_monitor_check(t_sim *sim)
 	{
 		sim->burned_coder_id = burned;
 		sim->stop = 1;
-		pthread_cond_broadcast(&sim->state_changed);
 	}
 	pthread_mutex_unlock(&sim->state_lock);
 	if (burned != 0)

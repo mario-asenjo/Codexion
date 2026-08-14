@@ -6,7 +6,7 @@
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 00:00:00 by masenjo           #+#    #+#             */
-/*   Updated: 2026/07/02 00:00:00 by masenjo          ###   ########.fr       */
+/*   Updated: 2026/08/14 16:40:00 by masenjo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int	cx_mark_compile_done(t_coder *coder)
 		{
 			sim->stop = 1;
 			stop = 1;
-			pthread_cond_broadcast(&sim->state_changed);
 		}
 	}
 	pthread_mutex_unlock(&sim->state_lock);
@@ -70,6 +69,8 @@ void	*cx_coder_routine(void *arg)
 	t_request	request;
 
 	coder = (t_coder *)arg;
+	if (coder->sim->cfg.number_of_coders == 1)
+		return (cx_single_coder(coder), NULL);
 	while (!cx_should_stop(coder->sim))
 	{
 		if (!cx_coder_wait_turn(coder, &request))
