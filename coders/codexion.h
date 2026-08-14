@@ -6,7 +6,7 @@
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 00:00:00 by masenjo           #+#    #+#             */
-/*   Updated: 2026/07/02 00:00:00 by masenjo          ###   ########.fr       */
+/*   Updated: 2026/08/14 16:30:00 by masenjo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,6 @@ typedef struct s_config
 	int				scheduler;
 }	t_config;
 
-typedef struct s_dongle
-{
-	int				id;
-	int				owner_id;
-	long			available_at_ms;
-}	t_dongle;
-
-typedef struct s_coder
-{
-	int				id;
-	int				compiles_done;
-	long			last_compile_start_ms;
-	pthread_t		thread;
-	t_sim			*sim;
-}	t_coder;
-
 typedef struct s_request
 {
 	int		coder_id;
@@ -70,15 +54,31 @@ typedef struct s_heap
 	int			capacity;
 }	t_heap;
 
+typedef struct s_dongle
+{
+	int				id;
+	int				owner_id;
+	long			available_at_ms;
+	pthread_mutex_t	lock;
+	t_heap			wait_heap;
+}	t_dongle;
+
+typedef struct s_coder
+{
+	int				id;
+	int				compiles_done;
+	long			last_compile_start_ms;
+	pthread_t		thread;
+	t_sim			*sim;
+}	t_coder;
+
 struct s_sim
 {
 	t_config		cfg;
 	t_coder			*coders;
 	t_dongle		*dongles;
-	t_heap			wait_heap;
 	pthread_mutex_t	state_lock;
 	pthread_mutex_t	log_lock;
-	pthread_cond_t	state_changed;
 	pthread_t		monitor_thread;
 	long			start_ms;
 	long			request_seq;
@@ -109,8 +109,9 @@ void	*cx_monitor_routine(void *arg);
 int		cx_coder_wait_turn(t_coder *coder, t_request *request);
 void	cx_coder_release(t_coder *coder);
 void	cx_init_coders(t_sim *sim);
-void	cx_init_dongles(t_sim *sim);
 void	cx_free_owned_memory(t_sim *sim);
 int		cx_alloc_sim_arrays(t_sim *sim);
+int		cx_init_dongles(t_sim *sim);
+void	cx_destroy_dongles(t_sim *sim, int count);
 
 #endif
