@@ -1,0 +1,70 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   coder_grant.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/14 16:40:00 by masenjo           #+#    #+#             */
+/*   Updated: 2026/08/14 16:40:00 by masenjo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "codexion.h"
+
+static int	cx_left_dongle(t_coder *coder)
+{
+	return (coder->id - 1);
+}
+
+static int	cx_right_dongle(t_coder *coder)
+{
+	return (coder->id % coder->sim->cfg.number_of_coders);
+}
+
+static int	cx_is_top(t_sim *sim, int index, int coder_id)
+{
+	t_request	top;
+
+	if (!cx_heap_peek(&sim->dongles[index].wait_heap, &top))
+		return (0);
+	return (top.coder_id == coder_id);
+}
+
+static int	cx_pair_available(t_coder *coder, int left, int right)
+{
+	t_sim	*sim;
+	long	now;
+
+	sim = coder->sim;
+	now = cx_now_ms() - sim->start_ms;
+	return (sim->dongles[left].owner_id == 0
+		&& sim->dongles[right].owner_id == 0
+		&& sim->dongles[left].available_at_ms <= now
+		&& sim->dongles[right].available_at_ms <= now);
+}
+
+int	cx_try_grant(t_coder *coder, t_request *request)
+{
+	t_sim	*sim;
+	int		left;
+	int		right;
+	int		granted;
+
+	sim = coder->sim;
+	left = cx_left_dongle(coder);
+	right = cx_right_dongle(coder);
+	cx_lock_dongle_pair(sim, left, right);
+	granted = cx_is_top(sim, left, coder->id)
+		&& cx_is_top(sim, right, coder->id)
+		&& cx_pair_available(coder, left, right);
+	if (granted)
+	{
+		cx_heap_pop(&sim->dongles[left].wait_heap, &sim->cfg, request);
+		cx_heap_pop(&sim->dongles[right].wait_heap, &sim->cfg, request);
+		sim->dongles[left].owner_id = coder->id;
+		sim->dongles[right].owner_id = coder->id;
+	}
+	cx_unlock_dongle_pair(sim, left, right);
+	return (granted);
+}
