@@ -4,30 +4,33 @@
 Modify EDF so that when two coders have the same deadline, the coder with the higher `coder_id` wins.
 
 ## Design requirement
-EDF tie-breaking must live in one small function, for example:
+EDF tie-breaking must live in one small function:
 
 ```c
-int edf_tie_break(t_request a, t_request b)
+int cx_edf_tie_break(t_request a, t_request b)
 ```
 
-The heap comparator should call this function instead of embedding tie-break logic in multiple places.
+The heap comparator calls this function instead of embedding tie-break logic in multiple places.
 
-## Base behavior recommendation
-Before recode, choose one clear tie-break policy:
-- lower `coder_id` first; or
-- lower request sequence first for stability.
-
-Document which one is used.
+## Base behavior
+The submitted implementation prefers the lower `coder_id` when EDF deadlines are equal, with request sequence as a final deterministic fallback.
 
 ## Recode steps
-1. Open `coders/heap.c`.
+1. Open `coders/heap_order.c`.
 2. Locate `cx_edf_tie_break`.
 3. Change only equal-deadline behavior to prefer higher `coder_id`.
 4. Rebuild with `make re`.
-5. Run a small EDF case that creates equal deadlines.
-6. Explain that no heap algorithm changed; only comparator policy changed.
+5. Run a small EDF case that creates equal deadlines and contention on the same dongle.
+6. Explain that no heap algorithm or synchronization rule changed; only comparator policy changed.
 
-Current implementation detail: EDF first compares `deadline_ms`; only equal deadlines call `cx_edf_tie_break`.
+The evaluator change is conceptually:
+
+```diff
+- return (a.coder_id < b.coder_id);
++ return (a.coder_id > b.coder_id);
+```
+
+EDF first compares `deadline_ms`; only equal deadlines call `cx_edf_tie_break`.
 
 ## Defense sentence
-“The heap is policy-agnostic. EDF ordering is centralized in the comparator, and equal-deadline behavior is isolated in one function, so recode changes scheduling policy without touching thread synchronization or heap mechanics.”
+“The heap mechanics are policy-agnostic. EDF ordering is centralized in the comparator, and equal-deadline behavior is isolated in one function, so the recode changes scheduling policy without touching resource synchronization or heap mechanics.”
