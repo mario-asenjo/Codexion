@@ -84,3 +84,14 @@ No simulator code was changed in this phase.
 
 ## Phase 9
 AI was used for a Ponytail simplification pass that removed unused per-dongle mutex state, initialization, destruction, prototypes, and documentation references. Central `state_lock` arbitration remains unchanged.
+
+## Evaluation hardening
+AI was used to re-read the mandatory concurrency requirements and review the implementation against evaluator-sensitive edge cases. The hardening pass:
+- restored a mutex owned by every dongle so each resource's mutable state is explicitly protected;
+- moved FIFO/EDF waiting heaps from one global queue to per-dongle queues, matching arbitration to contention on the same resource and avoiding unrelated global head-of-line blocking;
+- preserved atomic two-dongle grants and introduced deterministic ascending dongle-ID lock order;
+- made the single-coder case create a real coder thread while preserving the one-dongle constraint;
+- corrected monitor semantics so a coder remains subject to burnout until global successful termination;
+- updated README explanations to match the hardened implementation.
+
+These changes require a fresh build, Norminette, timing, leak, race, scheduler, and stress audit before final delivery.
