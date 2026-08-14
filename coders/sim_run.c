@@ -6,7 +6,7 @@
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 00:00:00 by masenjo           #+#    #+#             */
-/*   Updated: 2026/07/02 00:00:00 by masenjo          ###   ########.fr       */
+/*   Updated: 2026/08/14 16:30:00 by masenjo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	cx_stop_created(t_sim *sim, int count)
 
 	pthread_mutex_lock(&sim->state_lock);
 	sim->stop = 1;
-	pthread_cond_broadcast(&sim->state_changed);
 	pthread_mutex_unlock(&sim->state_lock);
 	pthread_join(sim->monitor_thread, NULL);
 	i = 0;
@@ -48,8 +47,6 @@ int	cx_sim_run(t_sim *sim)
 	if (pthread_create(&sim->monitor_thread, NULL,
 			cx_monitor_routine, sim) != 0)
 		return (0);
-	if (sim->cfg.number_of_coders == 1)
-		return (pthread_join(sim->monitor_thread, NULL), 1);
 	i = 0;
 	while (i < sim->cfg.number_of_coders)
 	{
