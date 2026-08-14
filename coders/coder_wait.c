@@ -6,7 +6,7 @@
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 00:00:00 by masenjo           #+#    #+#             */
-/*   Updated: 2026/08/14 16:30:00 by masenjo          ###   ########.fr       */
+/*   Updated: 2026/08/14 16:35:00 by masenjo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,24 +89,34 @@ static int	cx_try_grant(t_coder *coder, t_request *request)
 	return (granted);
 }
 
-static int	cx_queue_request(t_coder *coder, t_request *request)
+static int	cx_queue_pair(t_coder *coder, t_request *request)
 {
 	t_sim	*sim;
 	int		left;
 	int		right;
+	int		ok;
 
 	sim = coder->sim;
 	left = cx_left_dongle(coder);
 	right = cx_right_dongle(coder);
+	cx_lock_pair(sim, left, right);
+	ok = cx_heap_push(&sim->dongles[left].wait_heap, &sim->cfg, *request);
+	if (ok)
+		ok = cx_heap_push(&sim->dongles[right].wait_heap, &sim->cfg, *request);
+	cx_unlock_pair(sim, left, right);
+	return (ok);
+}
+
+static int	cx_queue_request(t_coder *coder, t_request *request)
+{
+	t_sim	*sim;
+
+	sim = coder->sim;
 	request->coder_id = coder->id;
 	request->seq = sim->request_seq++;
 	request->deadline_ms = coder->last_compile_start_ms
 		+ sim->cfg.time_to_burnout;
-	if (!cx_heap_push(&sim->dongles[left].wait_heap, &sim->cfg, *request))
-		return (0);
-	if (!cx_heap_push(&sim->dongles[right].wait_heap, &sim->cfg, *request))
-		return (0);
-	return (1);
+	return (cx_queue_pair(coder, request));
 }
 
 int	cx_coder_wait_turn(t_coder *coder, t_request *request)
