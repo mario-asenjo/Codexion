@@ -6,7 +6,7 @@
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 00:00:00 by masenjo           #+#    #+#             */
-/*   Updated: 2026/08/14 16:40:00 by masenjo          ###   ########.fr       */
+/*   Updated: 2026/08/17 21:20:00 by masenjo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ static int	cx_mark_compile_done(t_coder *coder)
 
 static void	cx_compile(t_coder *coder)
 {
-	pthread_mutex_lock(&coder->sim->state_lock);
-	coder->last_compile_start_ms = cx_now_ms() - coder->sim->start_ms;
-	pthread_mutex_unlock(&coder->sim->state_lock);
-	cx_log_state(coder->sim, coder->id, "has taken a dongle");
-	cx_log_state(coder->sim, coder->id, "has taken a dongle");
 	cx_log_state(coder->sim, coder->id, "is compiling");
 	cx_sleep_ms(coder->sim->cfg.time_to_compile);
 }
