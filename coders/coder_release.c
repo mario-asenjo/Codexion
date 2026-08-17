@@ -6,7 +6,7 @@
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 00:00:00 by masenjo           #+#    #+#             */
-/*   Updated: 2026/08/14 16:40:00 by masenjo          ###   ########.fr       */
+/*   Updated: 2026/08/17 21:20:00 by masenjo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	cx_coder_release(t_coder *coder)
 		sim->dongles[right].owner_id = 0;
 		sim->dongles[right].available_at_ms = next;
 	}
+	coder->granted = 0;
 	cx_unlock_dongle_pair(sim, left, right);
 	pthread_mutex_unlock(&sim->state_lock);
 }
