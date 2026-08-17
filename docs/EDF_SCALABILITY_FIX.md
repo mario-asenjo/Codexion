@@ -178,8 +178,26 @@ Norm:
 norminette coders/*.c coders/*.h
 ```
 
+## Automated verification on PR #26
+
+The `evaluator-hardening` GitHub Actions job completed successfully on Ubuntu for the PR head commit after the scheduler/tester changes were pushed.
+
+The following steps were all green:
+
+- mandatory `make fclean && make` build;
+- second `make` invocation;
+- standalone `tests/tester.c` build with `-Wall -Wextra -Werror`;
+- full evaluator-aligned tester, including repeated 100/200-coder EDF stress;
+- Norminette on every mandatory `coders/*.c` and `coders/*.h` file;
+- Valgrind Memcheck with non-zero error exit enabled;
+- Valgrind Helgrind with non-zero error exit enabled.
+
+This CI run is strong Linux regression evidence for the fix. A final execution on the actual 42 evaluation machine is still recommended because timing-sensitive concurrency can vary with hardware and OS scheduling.
+
 ## What is and is not claimed in this PR
 
-The branch was created from the current `main` and the scheduler/tester changes were reviewed structurally. The connector environment used to prepare the PR cannot execute a fresh clone of GitHub inside its sandbox, so target-machine runtime results must be produced with the commands above before merge.
+The branch was created from the current `main`. The connector authoring sandbox itself cannot clone GitHub directly, but the repository-hosted GitHub Actions workflow executed the branch on a fresh Ubuntu runner and all evaluator-hardening steps passed.
 
-The regression is considered fixed only when the repeated 100/200-coder EDF cases are green on the target environment and the existing Memcheck, Helgrind and Norm checks remain green.
+The automated result demonstrates that the implementation builds, the new tester passes its 100/200-coder regressions, mandatory Norminette is clean, and the selected Memcheck/Helgrind scenarios are clean on that runner.
+
+The remaining final gate is a quick rerun on the target 42 machine, especially for the timing-sensitive burnout tolerance.
