@@ -6,7 +6,7 @@
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 00:00:00 by masenjo           #+#    #+#             */
-/*   Updated: 2026/08/14 16:30:00 by masenjo          ###   ########.fr       */
+/*   Updated: 2026/08/17 21:20:00 by masenjo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	cx_init_coders(t_sim *sim)
 	{
 		sim->coders[i].id = i + 1;
 		sim->coders[i].compiles_done = 0;
+		sim->coders[i].granted = 0;
 		sim->coders[i].last_compile_start_ms = 0;
 		sim->coders[i].sim = sim;
 		i++;
