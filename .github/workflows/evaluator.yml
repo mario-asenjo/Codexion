@@ -1,0 +1,52 @@
+name: evaluator-hardening
+
+on:
+  push:
+    branches:
+      - fix/edf-scalability-and-evaluator-tester
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build mandatory project
+        run: |
+          make fclean
+          make
+          make
+
+      - name: Build standalone C tester
+        run: make -C tests re
+
+      - name: Run evaluator-aligned tester
+        run: ./tests/tester
+
+      - name: Install Norminette
+        run: python3 -m pip install --user norminette
+
+      - name: Check mandatory sources with Norminette
+        run: ~/.local/bin/norminette coders/*.c coders/*.h
+
+      - name: Install Valgrind
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y valgrind
+
+      - name: Memcheck
+        run: |
+          valgrind --quiet --error-exitcode=42 --leak-check=full \
+            --show-leak-kinds=all \
+            ./codexion 5 3000 100 100 100 2 50 edf >/dev/null
+
+      - name: Helgrind
+        run: |
+          valgrind --quiet --tool=helgrind --error-exitcode=43 \
+            ./codexion 4 3000 100 100 100 2 50 edf >/dev/null
