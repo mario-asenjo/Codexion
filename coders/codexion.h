@@ -6,7 +6,7 @@
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 00:00:00 by masenjo           #+#    #+#             */
-/*   Updated: 2026/08/14 16:40:00 by masenjo          ###   ########.fr       */
+/*   Updated: 2026/08/17 21:20:00 by masenjo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ typedef struct s_dongle
 	int				owner_id;
 	long			available_at_ms;
 	pthread_mutex_t	lock;
-	t_heap			wait_heap;
 }	t_dongle;
 
 typedef struct s_coder
 {
 	int				id;
 	int				compiles_done;
+	int				granted;
 	long			last_compile_start_ms;
 	pthread_t		thread;
 	t_sim			*sim;
@@ -77,6 +77,7 @@ struct s_sim
 	t_config		cfg;
 	t_coder			*coders;
 	t_dongle		*dongles;
+	t_heap			wait_heap;
 	pthread_mutex_t	state_lock;
 	pthread_mutex_t	log_lock;
 	pthread_t		monitor_thread;
@@ -107,7 +108,7 @@ int		cx_sim_run(t_sim *sim);
 void	*cx_coder_routine(void *arg);
 void	*cx_monitor_routine(void *arg);
 int		cx_coder_wait_turn(t_coder *coder, t_request *request);
-int		cx_try_grant(t_coder *coder, t_request *request);
+void	cx_dispatch_grants(t_sim *sim);
 void	cx_coder_release(t_coder *coder);
 void	cx_single_coder(t_coder *coder);
 void	cx_init_coders(t_sim *sim);

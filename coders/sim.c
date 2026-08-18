@@ -6,7 +6,7 @@
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 00:00:00 by masenjo           #+#    #+#             */
-/*   Updated: 2026/08/14 16:30:00 by masenjo          ###   ########.fr       */
+/*   Updated: 2026/08/17 21:20:00 by masenjo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ static int	cx_sim_init_storage(t_sim *sim)
 		return (0);
 	cx_init_coders(sim);
 	if (!cx_init_dongles(sim))
+		return (cx_free_owned_memory(sim), 0);
+	if (!cx_heap_init(&sim->wait_heap, sim->cfg.number_of_coders))
 	{
+		cx_destroy_dongles(sim, sim->cfg.number_of_coders);
 		cx_free_owned_memory(sim);
 		return (0);
 	}
@@ -54,6 +57,7 @@ int	cx_sim_init(t_sim *sim, t_config *cfg)
 		return (0);
 	if (!cx_init_sync(sim))
 	{
+		cx_heap_destroy(&sim->wait_heap);
 		cx_destroy_dongles(sim, sim->cfg.number_of_coders);
 		cx_free_owned_memory(sim);
 		return (0);
@@ -66,6 +70,7 @@ void	cx_sim_destroy(t_sim *sim)
 	if (sim == NULL)
 		return ;
 	cx_destroy_sync(sim);
+	cx_heap_destroy(&sim->wait_heap);
 	cx_destroy_dongles(sim, sim->cfg.number_of_coders);
 	cx_free_owned_memory(sim);
 	memset(sim, 0, sizeof(*sim));

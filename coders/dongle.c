@@ -6,7 +6,7 @@
 /*   By: masenjo <masenjo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 16:30:00 by masenjo           #+#    #+#             */
-/*   Updated: 2026/08/14 16:30:00 by masenjo          ###   ########.fr       */
+/*   Updated: 2026/08/17 21:20:00 by masenjo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	cx_destroy_dongles(t_sim *sim, int count)
 	i = 0;
 	while (i < count)
 	{
-		cx_heap_destroy(&sim->dongles[i].wait_heap);
 		pthread_mutex_destroy(&sim->dongles[i].lock);
 		i++;
 	}
@@ -35,11 +34,6 @@ static int	cx_init_one_dongle(t_sim *sim, int i)
 	dongle->available_at_ms = 0;
 	if (pthread_mutex_init(&dongle->lock, NULL) != 0)
 		return (0);
-	if (!cx_heap_init(&dongle->wait_heap, sim->cfg.number_of_coders))
-	{
-		pthread_mutex_destroy(&dongle->lock);
-		return (0);
-	}
 	return (1);
 }
 
